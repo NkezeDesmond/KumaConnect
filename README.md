@@ -1,31 +1,58 @@
-# KumaConnect
+# KumaConnect: An Offline-First Peer-to-Peer Communication and Intelligent Information Sharing System
 
-**Offline-first peer-to-peer mobile communication system.**
+**UNIVERSITY OF BAMENDA**
+**FACULTY OF SCIENCE**
+**DEPARTMENT OF COMPUTER SCIENCE**
 
-## 📖 Overview
-KumaConnect is an offline-first peer-to-peer mobile communication application designed to enable seamless messaging and file sharing without relying on internet access. It leverages technologies such as **Wi-Fi Direct** and **Bluetooth** to facilitate local area connectivity.
+**Project by:** NKEZE DESMOND
+**Matricule:** UBa23PB091
+**Level:** 400
+**Course:** CENP4113 – METHODOLOGY (CA PROJECT PROPOSAL)
+**Lecturer:** Dr. Fobacia
+**Academic Year:** 2025/2026
 
-Developed to address the challenges of unreliable internet connectivity, high data costs, and network congestion in developing regions and academic environments (such as the University of Bamenda), KumaConnect ensures vital communication and collaboration can persist even when off-grid. Furthermore, the system is enhanced with **Artificial Intelligence (AI)** capabilities to process and summarize information once internet connectivity is restored.
+---
 
-## ✨ Key Features
-- **Offline-First P2P Communication:** Direct messaging and file sharing entirely independent of the internet.
-- **Local Network Technologies:** Utilizes Wi-Fi Direct and Bluetooth for stable, short-range connections.
-- **Automatic Device Discovery:** Seamlessly discover and connect to nearby peers securely.
-- **AI-Powered Content Summarization:** Intelligently summarizes shared content (requires restored internet access).
-- **Decentralized Architecture:** No centralized server is required for basic local communication.
+## 1. Introduction
+The advancement of mobile and wireless communication technologies has significantly transformed how information is created, shared, and consumed. In educational institutions, business organizations, and social communities, digital communication platforms play a critical role in collaboration and knowledge dissemination. However, the effectiveness of these platforms is largely dependent on the availability of stable and continuous internet connectivity.
 
-## 🎯 Objectives
-- **Secure Peer-to-Peer Architecture:** Establish an offline communication infrastructure.
-- **Seamless Interaction:** Support messaging and file sharing without internet access.
-- **Intelligent Features:** Integrate AI-based summarization to enhance productivity when connectivity becomes available.
-- **Reliable and Usable:** Provide a dependable solution for academic and professional environments.
+In many developing regions, including parts of Cameroon, access to reliable internet remains a major challenge. Network instability, high data costs, limited infrastructure, and congestion in high-density environments such as university campuses often result in frequent communication breakdowns. At the University of Bamenda, students and lecturers regularly experience difficulties accessing online learning platforms, sharing academic materials, and communicating in real time due to poor network conditions.
 
-## 🌍 Significance
-- Enhances collaboration and resource sharing among students and lecturers in low-connectivity zones.
-- Provides a practical communication solution for rural communities and emergency disconnected scenarios.
-- Contributes to ongoing research in offline-first app design and P2P technologies.
+KumaConnect is proposed as an offline-first peer-to-peer mobile communication system designed to operate effectively in low-connectivity and no-connectivity environments. The application leverages Wi-Fi Direct and Bluetooth technologies to enable nearby devices to automatically discover each other and establish secure communication channels for messaging and file sharing without internet access. In addition, when internet connectivity becomes available, KumaConnect integrates artificial intelligence services to provide intelligent summarization of shared documents and images.
 
-## 🛠️ Scope and Limitations
-- **Current Platform:** Android application (Expansion to iOS and Desktop planned).
-- **Communication Range:** Constrained by the physical limitations of Wi-Fi Direct and Bluetooth hardware.
-- **AI Dependency:** The AI summarization feature strictly relies on periods of active internet access.
+## 2. Project Aim and Objectives
+**Aim:**
+To design, develop, and evaluate an offline-first mobile application that enables secure peer-to-peer communication and intelligent information sharing in environments with limited or unreliable internet connectivity.
+
+**Objectives:**
+- To design an offline peer-to-peer communication architecture using Wi-Fi Direct and Bluetooth.
+- To develop a mobile application that supports messaging and file sharing without internet access.
+- To implement automatic device discovery and secure handshaking mechanisms.
+- To integrate AI-based content summarization when internet connectivity is available.
+- To evaluate the system based on performance, usability, and reliability.
+
+## 3. Research Questions
+- How can peer-to-peer communication be effectively achieved without internet connectivity?
+- What role do Wi-Fi Direct and Bluetooth technologies play in offline mobile communication?
+- How can AI-based summarization enhance information sharing when connectivity is restored?
+- How usable and reliable is the proposed system in academic environments?
+
+## 4. Research Methodology
+This project adopts a design and development research methodology suitable for software-based projects:
+- **Platform:** Android Mobile Application
+- **Communication:** Wi-Fi Direct and Bluetooth for offline data transfer
+- **Data Storage:** Local data storage handled securely via SQLite / Room Database
+- **Security:** Encrypted data transfer and device authentication
+- **Evaluation:** Unit testing, integration testing, and basic usability testing
+
+## 5. Expected Outcomes
+- A functional offline-first peer-to-peer mobile communication application.
+- Reliable messaging and file sharing without internet dependency.
+- Intelligent content summarization when internet connectivity is available.
+- A well-researched academic project proposal that meets university standards.
+
+## 6. References
+- Android Developers. (2024). Wi-Fi Direct overview. Google Developers.
+- Bluetooth SIG. (2023). Bluetooth Core Specification. Bluetooth Special Interest Group.
+- Kumar, A., & Singh, R. (2021). Offline-first mobile applications: Design principles and challenges. International Journal of Mobile Computing, 9(2), 45–58.
+- Satyanarayanan, M. (2017). Edge computing: Vision and challenges. IEEE Internet Computing, 21(2), 30–38.
