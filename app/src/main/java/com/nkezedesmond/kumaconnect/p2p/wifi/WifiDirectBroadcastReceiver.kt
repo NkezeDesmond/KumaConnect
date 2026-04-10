@@ -25,6 +25,13 @@ class WifiDirectBroadcastReceiver(
             }
             WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION -> {
                 // Respond to new connection or disconnections
+                val networkInfo = intent.getParcelableExtra<android.net.NetworkInfo>(WifiP2pManager.EXTRA_NETWORK_INFO)
+                if (networkInfo?.isConnected == true) {
+                    // We are connected with the other device, request connection info to find group owner IP
+                    manager.requestConnectionInfo(channel, activity.connectionInfoListener)
+                } else {
+                    // It's a disconnect
+                }
             }
             WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION -> {
                 // Respond to this device's wifi state changing
