@@ -25,14 +25,15 @@ import com.nkezedesmond.kumaconnect.p2p.wifi.SendReceiveThread
 import com.nkezedesmond.kumaconnect.p2p.wifi.ServerClass
 import com.nkezedesmond.kumaconnect.p2p.wifi.WifiDirectManager
 
+import android.content.Intent
+import com.nkezedesmond.kumaconnect.features.chat.ChatActivity
+import com.nkezedesmond.kumaconnect.p2p.wifi.SocketManager
+
 class MainActivity : AppCompatActivity() {
 
     private lateinit var wifiDirectManager: WifiDirectManager
     private val peers = mutableListOf<WifiP2pDevice>()
     private lateinit var peerListAdapter: PeerListAdapter
-
-    // Network & Streams
-    var sendReceiveThread: SendReceiveThread? = null
 
     // View references
     private lateinit var btnDiscover: Button
@@ -56,7 +57,7 @@ class MainActivity : AppCompatActivity() {
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                 wifiDirectManager.manager?.discoverPeers(wifiDirectManager.channel, object : WifiP2pManager.ActionListener {
                     override fun onSuccess() {
-                        tvStatus.text = "Discovery Started..."
+                        tvStatus.text = "Discovery Started... Scanning for P2P Networks."
                     }
 
                     override fun onFailure(reasonCode: Int) {
@@ -66,6 +67,27 @@ class MainActivity : AppCompatActivity() {
             } else {
                 Toast.makeText(this, "Location permission required for discovery", Toast.LENGTH_SHORT).show()
                 requestPermissions()
+            }
+        }
+
+        val btnCreateGroup: Button = findViewById(R.id.btnCreateGroup)
+        btnCreateGroup.setOnClickListener {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                wifiDirectManager.manager?.createGroup(wifiDirectManager.channel, object : WifiP2pManager.ActionListener {
+                    override fun onSuccess() {
+                        tvStatus.text = "Group Successfully Initiated! Waiting for peers to join."
+                        // When acting as autonomous GO, start the server socket immediately
+                        ServerClass(handler) { stream -> 
+                            SocketManager.activeThread = stream 
+                        }.start()
+                        startActivity(Intent(this@MainActivity, ChatActivity::class.java).apply {
+                            putExtra("IS_GROUP_OWNER", true)
+                        })
+                    }
+                    override fun onFailure(reason: Int) {
+                        tvStatus.text = "Group Creation Failed: $reason"
+                    }
+                })
             }
         }
     }
@@ -85,10 +107,10 @@ class MainActivity : AppCompatActivity() {
         }
         wifiDirectManager.manager?.connect(wifiDirectManager.channel, config, object : WifiP2pManager.ActionListener {
             override fun onSuccess() {
-                Toast.makeText(this@MainActivity, "Connected to ${device.deviceName}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@MainActivity, "🤝 Handshake Initiated with ${device.deviceName}", Toast.LENGTH_SHORT).show()
             }
             override fun onFailure(reason: Int) {
-                Toast.makeText(this@MainActivity, "Connection Failed. Retry.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@MainActivity, "Handshake Failed. Retry.", Toast.LENGTH_SHORT).show()
             }
         })
     }
@@ -136,11 +158,17 @@ class MainActivity : AppCompatActivity() {
         val groupOwnerAddress = info.groupOwnerAddress
 
         if (info.groupFormed && info.isGroupOwner) {
-            tvStatus.text = "Host (Server)"
-            ServerClass(handler) { stream -> sendReceiveThread = stream }.start()
+            tvStatus.text = "🤝 Handshake Complete: Host (Server)"
+            ServerClass(handler) { stream -> 
+                SocketManager.activeThread = stream 
+            }.start()
+            startActivity(Intent(this, ChatActivity::class.java))
         } else if (info.groupFormed) {
-            tvStatus.text = "Client"
-            ClientClass(groupOwnerAddress, handler) { stream -> sendReceiveThread = stream }.start()
+            tvStatus.text = "🤝 Handshake Complete: Client"
+            ClientClass(groupOwnerAddress, handler) { stream -> 
+                SocketManager.activeThread = stream 
+            }.start()
+            startActivity(Intent(this, ChatActivity::class.java))
         }
     }
 

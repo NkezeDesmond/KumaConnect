@@ -1,3 +1,4 @@
+
 package com.nkezedesmond.kumaconnect.core.database.entities
 
 import androidx.room.Entity
